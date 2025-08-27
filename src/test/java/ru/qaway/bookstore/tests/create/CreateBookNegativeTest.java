@@ -1,0 +1,17 @@
+package ru.qaway.bookstore.tests.create;
+
+import org.testng.annotations.Test;
+import ru.qaway.bookstore.tests.BookData;
+import ru.qaway.bookstore.tests.BookStoreTestBase;
+import ru.qaway.bookstore.tests.rest.model.request.Book;
+import ru.qaway.bookstore.tests.rest.model.response.BookResponse;
+
+public class CreateBookNegativeTest extends BookStoreTestBase {
+    @Test(dataProviderClass = BookData.class,
+            dataProvider = "negative")
+    public void testCreate(Book book) {
+        testClient.create(book)
+                .checkStatusCode(400)
+                .checkErrorResponse(BookResponse.createError400());
+    }
+}
